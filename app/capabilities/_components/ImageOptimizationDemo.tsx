@@ -7,9 +7,9 @@ const DEMO_IMAGE = 'samples/landscapes/nature-mountains'
 
 const formats = [
   { label: 'Auto (WebP/AVIF)', format: 'auto', quality: 'auto' },
-  { label: 'JPEG q80', format: 'jpg', quality: 80 },
-  { label: 'JPEG q30', format: 'jpg', quality: 30 },
-  { label: 'WebP q50', format: 'webp', quality: 50 },
+  { label: 'JPEG q90 (High)', format: 'jpg', quality: 90 },
+  { label: 'JPEG q10 (Low)', format: 'jpg', quality: 10 },
+  { label: 'WebP q5 (Very Low)', format: 'webp', quality: 5 },
 ]
 
 const sizes = [
@@ -33,23 +33,27 @@ export function ImageOptimizationDemo() {
         {/* Format comparison */}
         <div>
           <h3 className="heading-3 mb-6">Format &amp; Quality Comparison</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <p className="text-gray-600 mb-8 text-center">
+            Compare compression artifacts at different quality levels. Lower quality = smaller file size but more visible artifacts.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {formats.map((f) => (
               <div key={f.label} className="text-center">
-                <div className="overflow-hidden rounded-xl border border-gray-200">
+                <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
                   <CldImage
                     src={DEMO_IMAGE}
                     alt={f.label}
-                    width={400}
-                    height={300}
+                    width={800}
+                    height={600}
                     crop="fill"
                     gravity="auto"
                     quality={f.quality}
                     format={f.format}
-                    sizes="(max-width: 640px) 100vw, 25vw"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="w-full h-auto"
                   />
                 </div>
-                <p className="mt-2 text-sm font-medium text-gray-700">{f.label}</p>
+                <p className="mt-3 text-base font-medium text-gray-700">{f.label}</p>
               </div>
             ))}
           </div>
