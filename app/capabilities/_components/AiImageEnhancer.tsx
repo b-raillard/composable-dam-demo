@@ -2,7 +2,7 @@ import { BeforeAfterSlider } from '@/components/media/BeforeAfterSlider'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 
 const ORIGINAL_IMAGE = 'underexposed-1_1_e3qzmz'
-const ENHANCED_IMAGE = 'underexposed-1_ht9gzz'
+const ENHANCED_IMAGE = 'underexposed-1_2_sk4ph5'
 
 export function AiImageEnhancer() {
   return (
