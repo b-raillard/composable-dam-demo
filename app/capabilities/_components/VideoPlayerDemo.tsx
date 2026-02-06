@@ -13,11 +13,11 @@ const CldVideoPlayer = dynamic(
 const DEMO_VIDEO = 'samples/sea-turtle'
 
 const qualityLevels = [
-  { label: 'Auto', quality: 'auto', resolution: 'Adaptive', description: 'Cloudinary selects optimal quality' },
-  { label: '1080p', quality: 100, resolution: '1920×1080', description: 'Full HD - High bandwidth' },
-  { label: '720p', quality: 70, resolution: '1280×720', description: 'HD - Medium bandwidth' },
-  { label: '480p', quality: 50, resolution: '854×480', description: 'SD - Low bandwidth' },
-  { label: '240p', quality: 30, resolution: '426×240', description: 'Very Low - Minimal bandwidth' },
+  { label: 'Auto', width: undefined, height: undefined, description: 'Original resolution' },
+  { label: '1080p', width: 1920, height: 1080, description: 'Full HD - High bandwidth' },
+  { label: '720p', width: 1280, height: 720, description: 'HD - Medium bandwidth' },
+  { label: '480p', width: 854, height: 480, description: 'SD - Low bandwidth' },
+  { label: '360p', width: 640, height: 360, description: 'Low - Minimal bandwidth' },
 ]
 
 export function VideoPlayerDemo() {
@@ -144,9 +144,11 @@ export function VideoPlayerDemo() {
             width={1920}
             height={1080}
             sourceTypes={['mp4']}
-            transformation={{
-              quality: selectedQuality.quality,
-            }}
+            transformation={selectedQuality.width ? {
+              width: selectedQuality.width,
+              height: selectedQuality.height,
+              crop: 'limit',
+            } : undefined}
             colors={{
               accent: '#3b82f6',
               base: '#1e293b',
