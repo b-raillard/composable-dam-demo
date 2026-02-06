@@ -3,13 +3,13 @@
 import { CldImage } from 'next-cloudinary'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 
-const DEMO_IMAGE = 'samples/animals/three-dogs'
+const DEMO_IMAGE = 'samples/people/kitchen-bar'
 
 const objectTargets = [
-  { label: 'Auto (subject)', gravity: 'auto' },
-  { label: 'Face', gravity: 'auto:face' },
-  { label: 'Center', gravity: 'center' },
-  { label: 'North', gravity: 'north' },
+  { label: 'Auto (subject)', gravity: 'auto', description: 'AI detects main subject' },
+  { label: 'Face', gravity: 'face', description: 'Detects and centers on face' },
+  { label: 'Faces', gravity: 'faces', description: 'Centers on all faces' },
+  { label: 'Body', gravity: 'body', description: 'Detects full body' },
 ]
 
 export function AiObjectDetection() {
@@ -42,7 +42,8 @@ export function AiObjectDetection() {
               />
             </div>
             <p className="mt-2 text-sm font-medium text-gray-700">{target.label}</p>
-            <p className="text-xs text-gray-500 font-mono">g_{target.gravity}</p>
+            <p className="text-xs text-gray-500">{target.description}</p>
+            <p className="text-xs text-gray-400 font-mono mt-1">g_{target.gravity}</p>
           </div>
         ))}
       </div>
