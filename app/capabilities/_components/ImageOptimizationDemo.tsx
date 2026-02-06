@@ -55,13 +55,16 @@ export function ImageOptimizationDemo() {
           </div>
         </div>
 
-        {/* Responsive sizes */}
+        {/* Responsive sizes - actual pixel dimensions */}
         <div>
           <h3 className="heading-3 mb-6">Responsive Sizing</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <p className="text-gray-600 mb-8 text-center">
+            Each image is displayed at its actual pixel size to demonstrate different resolutions served by Cloudinary.
+          </p>
+          <div className="space-y-8">
             {sizes.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="overflow-hidden rounded-xl border border-gray-200">
+              <div key={s.label} className="flex flex-col items-center">
+                <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm" style={{ width: s.width, maxWidth: '100%' }}>
                   <CldImage
                     src={DEMO_IMAGE}
                     alt={`${s.label} wide`}
@@ -71,12 +74,14 @@ export function ImageOptimizationDemo() {
                     gravity="auto"
                     quality="auto"
                     format="auto"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="w-full h-auto"
                   />
                 </div>
-                <p className="mt-2 text-sm font-medium text-gray-700">
-                  Requested: {s.label}
-                </p>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-700">
+                    {s.width} x {Math.round(s.width * 0.667)}px
+                  </span>
+                </div>
               </div>
             ))}
           </div>
