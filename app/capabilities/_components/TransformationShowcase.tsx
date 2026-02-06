@@ -32,7 +32,7 @@ export function TransformationShowcase() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         <TransformCard label="Original">
-          <CldImage src={DEMO_IMAGE} alt="Original" width={400} height={400} crop="scale" quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
+          <CldImage src={DEMO_IMAGE} alt="Original" width={400} height={400} crop="fit" quality="auto" format="auto" sizes={imgSizes} className="h-full w-full object-contain" />
         </TransformCard>
 
         <TransformCard label="Face-aware Crop">
