@@ -7,9 +7,9 @@ const DEMO_IMAGE = 'samples/animals/three-dogs'
 
 const objectTargets = [
   { label: 'Auto (subject)', gravity: 'auto' },
-  { label: 'Dog', gravity: 'auto:dog' },
   { label: 'Face', gravity: 'auto:face' },
   { label: 'Center', gravity: 'center' },
+  { label: 'North', gravity: 'north' },
 ]
 
 export function AiObjectDetection() {

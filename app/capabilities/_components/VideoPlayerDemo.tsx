@@ -20,7 +20,7 @@ export function VideoPlayerDemo() {
             publicId={DEMO_VIDEO}
             width={1920}
             height={1080}
-            sourceTypes={['hls', 'dash', 'mp4']}
+            sourceTypes={['mp4']}
             colors={{
               accent: '#3b82f6',
               base: '#1e293b',
@@ -32,9 +32,9 @@ export function VideoPlayerDemo() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
           <div className="bg-gray-800 rounded-xl p-6">
-            <p className="text-primary-400 font-semibold text-lg">HLS Streaming</p>
+            <p className="text-primary-400 font-semibold text-lg">Smart Delivery</p>
             <p className="mt-2 text-gray-400 text-sm">
-              Adaptive bitrate with multiple quality levels
+              Automatic format and quality optimization
             </p>
           </div>
           <div className="bg-gray-800 rounded-xl p-6">
