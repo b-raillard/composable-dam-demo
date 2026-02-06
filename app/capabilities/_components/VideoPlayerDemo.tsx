@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import 'next-cloudinary/dist/cld-video-player.css'
@@ -23,11 +23,65 @@ const qualityLevels = [
 export function VideoPlayerDemo() {
   const [selectedQuality, setSelectedQuality] = useState(qualityLevels[0])
   const [playerKey, setPlayerKey] = useState(0)
+  const [actualResolution, setActualResolution] = useState<{ width: number; height: number } | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleQualityChange = (quality: typeof qualityLevels[0]) => {
     setSelectedQuality(quality)
-    setPlayerKey(prev => prev + 1) // Force re-render of player
+    setIsLoading(true)
+    setActualResolution(null)
+    setPlayerKey(prev => prev + 1)
   }
+
+  // Detect actual video resolution from the video element
+  useEffect(() => {
+    const checkVideoResolution = () => {
+      const videoElement = document.querySelector('.video-player-container video') as HTMLVideoElement
+      if (videoElement && videoElement.videoWidth > 0) {
+        setActualResolution({
+          width: videoElement.videoWidth,
+          height: videoElement.videoHeight
+        })
+        setIsLoading(false)
+        return true
+      }
+      return false
+    }
+
+    // Poll for video element and resolution
+    const interval = setInterval(() => {
+      if (checkVideoResolution()) {
+        clearInterval(interval)
+      }
+    }, 200)
+
+    // Also listen for loadedmetadata event
+    const handleMetadata = () => {
+      checkVideoResolution()
+    }
+
+    const videoElement = document.querySelector('.video-player-container video') as HTMLVideoElement
+    if (videoElement) {
+      videoElement.addEventListener('loadedmetadata', handleMetadata)
+    }
+
+    return () => {
+      clearInterval(interval)
+      if (videoElement) {
+        videoElement.removeEventListener('loadedmetadata', handleMetadata)
+      }
+    }
+  }, [playerKey])
+
+  const getQualityLabel = useCallback(() => {
+    if (!actualResolution) return null
+    const { height } = actualResolution
+    if (height >= 1080) return '1080p'
+    if (height >= 720) return '720p'
+    if (height >= 480) return '480p'
+    if (height >= 360) return '360p'
+    return '240p'
+  }, [actualResolution])
 
   return (
     <SectionWrapper background="dark">
@@ -57,20 +111,33 @@ export function VideoPlayerDemo() {
           ))}
         </div>
 
-        {/* Current quality indicator */}
+        {/* Real-time quality indicator */}
         <div className="flex justify-center">
-          <div className="inline-flex items-center gap-4 bg-gray-800/80 backdrop-blur rounded-full px-6 py-3">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
-              <span className="text-gray-300 text-sm">Current Quality:</span>
+          <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-6 bg-gray-800/80 backdrop-blur rounded-2xl px-6 py-4">
+            <div className="flex items-center gap-3">
+              <span className={`w-3 h-3 rounded-full ${isLoading ? 'bg-yellow-500' : 'bg-green-500'} animate-pulse`}></span>
+              <span className="text-gray-300 text-sm">Requested:</span>
+              <span className="text-white font-semibold">{selectedQuality.label}</span>
             </div>
-            <span className="text-white font-semibold">{selectedQuality.resolution}</span>
-            <span className="text-gray-400 text-sm hidden sm:inline">({selectedQuality.description})</span>
+            <div className="hidden sm:block w-px h-6 bg-gray-600"></div>
+            <div className="flex items-center gap-3">
+              <span className="text-gray-300 text-sm">Actual Resolution:</span>
+              {isLoading ? (
+                <span className="text-yellow-400 font-semibold animate-pulse">Loading...</span>
+              ) : actualResolution ? (
+                <span className="text-green-400 font-semibold">
+                  {actualResolution.width} × {actualResolution.height}
+                  <span className="ml-2 text-xs text-gray-400">({getQualityLabel()})</span>
+                </span>
+              ) : (
+                <span className="text-gray-400">—</span>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Video player */}
-        <div className="rounded-xl overflow-hidden shadow-2xl">
+        <div className="rounded-xl overflow-hidden shadow-2xl video-player-container">
           <CldVideoPlayer
             key={playerKey}
             src={DEMO_VIDEO}
