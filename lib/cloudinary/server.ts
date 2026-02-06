@@ -21,12 +21,21 @@ export async function getAutoTags(
 
     const tags: { tag: string; confidence: number }[] = []
 
+    // Cloudinary AI Content Analysis
+    if (result.info?.categorization?.cld_ai?.data) {
+      for (const item of result.info.categorization.cld_ai.data) {
+        tags.push({ tag: item.tag, confidence: item.confidence })
+      }
+    }
+
+    // Google Auto Tagging (if enabled)
     if (result.info?.categorization?.google_tagging?.data) {
       for (const item of result.info.categorization.google_tagging.data) {
         tags.push({ tag: item.tag, confidence: item.confidence })
       }
     }
 
+    // AWS Rekognition (if enabled)
     if (result.info?.categorization?.aws_rek_tagging?.data) {
       for (const item of result.info.categorization.aws_rek_tagging.data) {
         tags.push({ tag: item.tag, confidence: item.confidence })
