@@ -86,7 +86,7 @@ export function BeforeAfterSlider({
           width={width}
           height={height}
           crop="fill"
-          gravity="auto"
+          gravity="center"
           quality="auto"
           format="auto"
           removeBackground={afterPublicId ? undefined : removeBackground}
@@ -109,7 +109,7 @@ export function BeforeAfterSlider({
           width={width}
           height={height}
           crop="fill"
-          gravity="auto"
+          gravity="center"
           quality="auto"
           format="auto"
           className="h-full w-full object-cover"
