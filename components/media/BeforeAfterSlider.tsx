@@ -91,8 +91,7 @@ export function BeforeAfterSlider({
           format="auto"
           removeBackground={afterPublicId ? undefined : removeBackground}
           fillBackground={afterPublicId ? undefined : fillBackground}
-          rawTransformations={afterPublicId ? undefined : rawTransformations}
-          effects={afterPublicId ? undefined : (enhance ? [{ enhance: true }] : undefined)}
+          rawTransformations={afterPublicId ? undefined : (enhance ? ['e_enhance'] : rawTransformations)}
           {...(afterPublicId ? {} : afterTransformations)}
           className="h-full w-full object-cover"
         />
