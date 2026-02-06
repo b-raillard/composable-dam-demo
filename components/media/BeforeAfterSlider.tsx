@@ -5,6 +5,7 @@ import { CldImage } from 'next-cloudinary'
 
 interface BeforeAfterSliderProps {
   publicId: string
+  afterPublicId?: string
   alt: string
   width: number
   height: number
@@ -14,11 +15,13 @@ interface BeforeAfterSliderProps {
   removeBackground?: boolean
   fillBackground?: boolean | { gravity?: string; prompt?: string }
   rawTransformations?: string[]
+  enhance?: boolean
   className?: string
 }
 
 export function BeforeAfterSlider({
   publicId,
+  afterPublicId,
   alt,
   width,
   height,
@@ -28,6 +31,7 @@ export function BeforeAfterSlider({
   removeBackground,
   fillBackground,
   rawTransformations,
+  enhance,
   className = '',
 }: BeforeAfterSliderProps) {
   const [position, setPosition] = useState(50)
@@ -77,7 +81,7 @@ export function BeforeAfterSlider({
       {/* After image (full width, behind) */}
       <div className="absolute inset-0">
         <CldImage
-          src={publicId}
+          src={afterPublicId || publicId}
           alt={`${alt} - ${afterLabel}`}
           width={width}
           height={height}
@@ -85,10 +89,11 @@ export function BeforeAfterSlider({
           gravity="auto"
           quality="auto"
           format="auto"
-          removeBackground={removeBackground}
-          fillBackground={fillBackground}
-          rawTransformations={rawTransformations}
-          {...afterTransformations}
+          removeBackground={afterPublicId ? undefined : removeBackground}
+          fillBackground={afterPublicId ? undefined : fillBackground}
+          rawTransformations={afterPublicId ? undefined : rawTransformations}
+          effects={afterPublicId ? undefined : (enhance ? [{ enhance: true }] : undefined)}
+          {...(afterPublicId ? {} : afterTransformations)}
           className="h-full w-full object-cover"
         />
       </div>

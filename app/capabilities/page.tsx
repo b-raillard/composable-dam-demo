@@ -5,7 +5,7 @@ import { VideoPlayerDemo } from './_components/VideoPlayerDemo'
 import { AiBackgroundRemoval } from './_components/AiBackgroundRemoval'
 import { AiGenerativeFill } from './_components/AiGenerativeFill'
 import { AiContentAwareCrop } from './_components/AiContentAwareCrop'
-import { AiObjectDetection } from './_components/AiObjectDetection'
+import { AiImageEnhancer } from './_components/AiImageEnhancer'
 import { AiAutoTagging } from './_components/AiAutoTagging'
 import { AiGenerativeReplace } from './_components/AiGenerativeReplace'
 
@@ -78,7 +78,7 @@ export default function CapabilitiesPage() {
         <AiBackgroundRemoval />
         <AiGenerativeFill />
         <AiContentAwareCrop />
-        <AiObjectDetection />
+        <AiImageEnhancer />
         <AiAutoTagging />
         <AiGenerativeReplace />
       </div>
