@@ -19,7 +19,7 @@ export async function Header() {
   // Merge Contentful navigation with default items, always include Gallery
   const contentfulNavItems = settings?.navigation?.length ? settings.navigation : defaultNavItems.filter(item => item.label !== 'Gallery')
   const galleryItem = { label: 'Gallery', href: '/contentful-gallery', order: 99 }
-  const navItems = [...contentfulNavItems, galleryItem].sort((a, b) => a.order - b.order)
+  const navItems = [...contentfulNavItems, galleryItem].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
