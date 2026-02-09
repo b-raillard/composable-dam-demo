@@ -17,6 +17,7 @@ interface BeforeAfterSliderProps {
   rawTransformations?: string[]
   enhance?: boolean
   className?: string
+  gravity?: string
 }
 
 export function BeforeAfterSlider({
@@ -33,6 +34,7 @@ export function BeforeAfterSlider({
   rawTransformations,
   enhance,
   className = '',
+  gravity = 'center',
 }: BeforeAfterSliderProps) {
   const [position, setPosition] = useState(50)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -86,7 +88,7 @@ export function BeforeAfterSlider({
           width={width}
           height={height}
           crop="fill"
-          gravity="center"
+          gravity={gravity}
           quality="auto"
           format="auto"
           removeBackground={afterPublicId ? undefined : removeBackground}
@@ -108,7 +110,7 @@ export function BeforeAfterSlider({
           width={width}
           height={height}
           crop="fill"
-          gravity="center"
+          gravity={gravity}
           quality="auto"
           format="auto"
           className="h-full w-full object-cover"

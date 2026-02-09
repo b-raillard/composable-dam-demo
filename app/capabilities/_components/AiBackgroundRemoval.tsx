@@ -38,6 +38,7 @@ export function AiBackgroundRemoval() {
             beforeLabel="Original"
             afterLabel="Background Removed"
             removeBackground
+            gravity="west"
           />
         </div>
       </div>
