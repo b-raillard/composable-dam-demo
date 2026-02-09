@@ -8,13 +8,18 @@ import { Container } from '@/components/ui/Container'
 const defaultNavItems = [
   { label: 'Home', href: '/', order: 0 },
   { label: 'Capabilities', href: '/capabilities', order: 1 },
+  { label: 'Gallery', href: '/contentful-gallery', order: 2 },
 ]
 
 export async function Header() {
   const settings = await getSiteSettings()
 
   const logoPublicId = settings?.logo ? getPublicId(settings.logo) : null
-  const navItems = settings?.navigation?.length ? settings.navigation : defaultNavItems
+
+  // Merge Contentful navigation with default items, always include Gallery
+  const contentfulNavItems = settings?.navigation?.length ? settings.navigation : defaultNavItems.filter(item => item.label !== 'Gallery')
+  const galleryItem = { label: 'Gallery', href: '/contentful-gallery', order: 99 }
+  const navItems = [...contentfulNavItems, galleryItem].sort((a, b) => a.order - b.order)
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
