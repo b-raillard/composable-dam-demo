@@ -15,8 +15,8 @@ const cropExamples = [
 export function AiContentAwareCrop() {
   return (
     <SectionWrapper>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
+      <div className="space-y-8">
+        <div className="text-center max-w-3xl mx-auto">
           <h3 className="heading-3">Content-Aware Crop</h3>
           <p className="mt-4 text-gray-600 leading-relaxed">
             Intelligent cropping that automatically identifies and preserves the
@@ -25,7 +25,7 @@ export function AiContentAwareCrop() {
             in frame regardless of aspect ratio.
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {cropExamples.map((ex) => (
             <div key={ex.label} className="text-center">
               <div className="overflow-hidden rounded-xl border border-gray-200">
@@ -38,7 +38,7 @@ export function AiContentAwareCrop() {
                   gravity="auto"
                   quality="auto"
                   format="auto"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className="w-full h-auto"
                 />
               </div>

@@ -8,7 +8,7 @@ const DEMO_IMAGE = 'samples/people/smiling-man'
 function TransformCard({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="text-center">
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white aspect-square">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
         {children}
       </div>
       <p className="mt-2 text-sm font-medium text-gray-700">{label}</p>
@@ -16,7 +16,7 @@ function TransformCard({ label, children }: { label: string; children: React.Rea
   )
 }
 
-const imgClass = "h-full w-full object-cover"
+const imgClass = "w-full h-auto"
 const imgSizes = "(max-width: 640px) 50vw, 25vw"
 
 export function TransformationShowcase() {
@@ -32,35 +32,35 @@ export function TransformationShowcase() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         <TransformCard label="Original">
-          <CldImage src={DEMO_IMAGE} alt="Original" width={400} height={400} crop="fit" quality="auto" format="auto" sizes={imgSizes} className="h-full w-full object-contain" />
+          <CldImage src={DEMO_IMAGE} alt="Original" width={400} height={266} crop="scale" quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
         </TransformCard>
 
-        <TransformCard label="Face-aware Crop">
-          <CldImage src={DEMO_IMAGE} alt="Face-aware Crop" width={400} height={400} crop="thumb" gravity="face" quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
+        <TransformCard label="AI Background Replace">
+          <CldImage src={DEMO_IMAGE} alt="AI Background Replace" width={400} height={266} crop="scale" quality="auto" format="auto" sizes={imgSizes} className={imgClass} rawTransformations={['e_gen_background_replace:prompt_Space with moon in background']} />
         </TransformCard>
 
         <TransformCard label="Rounded Corners">
-          <CldImage src={DEMO_IMAGE} alt="Rounded Corners" width={400} height={400} crop="thumb" gravity="face" radius={40} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
+          <CldImage src={DEMO_IMAGE} alt="Rounded Corners" width={400} height={266} crop="scale" radius={40} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
         </TransformCard>
 
         <TransformCard label="Circular Crop">
-          <CldImage src={DEMO_IMAGE} alt="Circular Crop" width={400} height={400} crop="thumb" gravity="face" radius="max" quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
+          <CldImage src={DEMO_IMAGE} alt="Circular Crop" width={400} height={266} crop="scale" radius="max" quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
         </TransformCard>
 
         <TransformCard label="Grayscale">
-          <CldImage src={DEMO_IMAGE} alt="Grayscale" width={400} height={400} crop="fill" gravity="face" rawTransformations={['e_grayscale']} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
+          <CldImage src={DEMO_IMAGE} alt="Grayscale" width={400} height={266} crop="scale" rawTransformations={['e_grayscale']} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
         </TransformCard>
 
         <TransformCard label="Sepia">
-          <CldImage src={DEMO_IMAGE} alt="Sepia" width={400} height={400} crop="fill" gravity="face" rawTransformations={['e_sepia:80']} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
+          <CldImage src={DEMO_IMAGE} alt="Sepia" width={400} height={266} crop="scale" rawTransformations={['e_sepia:80']} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
         </TransformCard>
 
         <TransformCard label="Blur">
-          <CldImage src={DEMO_IMAGE} alt="Blur" width={400} height={400} crop="fill" gravity="auto" rawTransformations={['e_blur:300']} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
+          <CldImage src={DEMO_IMAGE} alt="Blur" width={400} height={266} crop="scale" rawTransformations={['e_blur:300']} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
         </TransformCard>
 
         <TransformCard label="Art Filter">
-          <CldImage src={DEMO_IMAGE} alt="Art Filter" width={400} height={400} crop="fill" gravity="auto" rawTransformations={['e_art:audrey']} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
+          <CldImage src={DEMO_IMAGE} alt="Art Filter" width={400} height={266} crop="scale" rawTransformations={['e_art:audrey']} quality="auto" format="auto" sizes={imgSizes} className={imgClass} />
         </TransformCard>
       </div>
     </SectionWrapper>
