@@ -16,12 +16,12 @@ const contentfulClient = createClient({
  * @param contentType - Le type de contenu Contentful
  * @param limit - Nombre maximum d'entrées à récupérer
  */
-export async function getContentfulEntriesWithCloudinary<T = any>(
+export async function getContentfulEntriesWithCloudinary<T = Record<string, any>>(
   contentType: string,
   limit = 10
 ) {
   try {
-    const entries = await contentfulClient.getEntries<T>({
+    const entries = await contentfulClient.getEntries({
       content_type: contentType,
       limit,
     })
@@ -30,7 +30,7 @@ export async function getContentfulEntriesWithCloudinary<T = any>(
       id: item.sys.id,
       createdAt: item.sys.createdAt,
       updatedAt: item.sys.updatedAt,
-      fields: item.fields,
+      fields: item.fields as T,
     }))
   } catch (error) {
     console.error('Error fetching Contentful entries:', error)
@@ -42,15 +42,15 @@ export async function getContentfulEntriesWithCloudinary<T = any>(
  * Récupère une entrée spécifique avec son asset Cloudinary
  * @param entryId - L'ID de l'entrée Contentful
  */
-export async function getContentfulEntry<T = any>(entryId: string) {
+export async function getContentfulEntry<T = Record<string, any>>(entryId: string) {
   try {
-    const entry = await contentfulClient.getEntry<T>(entryId)
+    const entry = await contentfulClient.getEntry(entryId)
 
     return {
       id: entry.sys.id,
       createdAt: entry.sys.createdAt,
       updatedAt: entry.sys.updatedAt,
-      fields: entry.fields,
+      fields: entry.fields as T,
     }
   } catch (error) {
     console.error('Error fetching Contentful entry:', error)
