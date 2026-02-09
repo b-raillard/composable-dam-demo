@@ -10,7 +10,7 @@ export function AutoTaggingImage({ publicId }: { publicId: string }) {
       width={800}
       height={600}
       crop="fill"
-      gravity="auto"
+      gravity="center"
       quality="auto"
       format="auto"
       sizes="(max-width: 1024px) 100vw, 50vw"

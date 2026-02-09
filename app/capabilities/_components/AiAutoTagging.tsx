@@ -1,4 +1,4 @@
-import { getAutoTags } from '@/lib/cloudinary/server'
+import { getAutoTags, triggerAutoTagging } from '@/lib/cloudinary/server'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { AutoTaggingImage } from './AutoTaggingImage'
 
@@ -9,6 +9,16 @@ export async function AiAutoTagging() {
 
   try {
     tags = await getAutoTags(DEMO_IMAGE)
+
+    // If no tags found, trigger analysis and retry
+    if (tags.length === 0) {
+      const triggered = await triggerAutoTagging(DEMO_IMAGE)
+      if (triggered) {
+        // Wait a moment for processing, then fetch again
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        tags = await getAutoTags(DEMO_IMAGE)
+      }
+    }
   } catch {
     // Tags will remain empty if API call fails
   }
@@ -28,7 +38,9 @@ export async function AiAutoTagging() {
 
           {tags.length > 0 ? (
             <div className="mt-6">
-              <p className="text-sm font-medium text-gray-500 mb-3">Detected tags:</p>
+              <p className="text-sm font-medium text-gray-500 mb-3">
+                Detected tags (using Cloudinary's color analysis):
+              </p>
               <div className="flex flex-wrap gap-2">
                 {tags.slice(0, 15).map((t) => (
                   <span
@@ -42,11 +54,14 @@ export async function AiAutoTagging() {
                   </span>
                 ))}
               </div>
+              <p className="mt-3 text-xs text-gray-400">
+                For advanced AI tagging (objects, scenes, activities), enable AWS Rekognition, Google Vision, or Imagga add-ons in your Cloudinary account.
+              </p>
             </div>
           ) : (
             <div className="mt-6 p-4 bg-gray-50 rounded-lg text-sm text-gray-500">
               <p>
-                Auto-tagging requires the AI Content Analysis add-on enabled in
+                Auto-tagging requires categorization add-ons (AWS Rekognition, Google Vision, or Imagga) enabled in
                 your Cloudinary account. Tags will appear here once configured.
               </p>
             </div>
