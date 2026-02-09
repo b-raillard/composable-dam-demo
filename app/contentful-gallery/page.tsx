@@ -33,16 +33,16 @@ export default async function ContentfulGalleryPage() {
     20
   )
 
-  // Combiner toutes les entrées
+  // Combiner toutes les entrées avec le bon typage
   const allEntries = [
     ...mediaDisplayEntries.map(entry => ({
       ...entry,
-      cloudinaryField: entry.fields.cloudinaryJson,
+      cloudinaryField: (entry.fields as CloudinaryMediaDisplayFields).cloudinaryJson,
       source: 'cloudinaryMediaDisplay' as const
     })),
     ...featureItemEntries.map(entry => ({
       ...entry,
-      cloudinaryField: entry.fields.image,
+      cloudinaryField: (entry.fields as FeatureItemFields).image,
       source: 'featureItem' as const
     }))
   ]
