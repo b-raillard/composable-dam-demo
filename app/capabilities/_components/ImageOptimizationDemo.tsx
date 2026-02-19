@@ -1,7 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import { CldImage } from 'next-cloudinary'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
+import { TransformationDemoModal } from './TransformationDemoModal'
 
 const DEMO_IMAGE = 'samples/landscapes/nature-mountains'
 
@@ -19,6 +21,8 @@ const sizes = [
 ]
 
 export function ImageOptimizationDemo() {
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <SectionWrapper>
       <div className="text-center mb-12">
@@ -90,7 +94,22 @@ export function ImageOptimizationDemo() {
             ))}
           </div>
         </div>
+
+        {/* Transformation demo button */}
+        <div className="flex justify-center pt-4">
+          <button
+            onClick={() => setShowModal(true)}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white text-sm font-semibold rounded-xl hover:bg-primary-700 active:bg-primary-800 transition-colors shadow-sm"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+            </svg>
+            Transformation demo
+          </button>
+        </div>
       </div>
+
+      {showModal && <TransformationDemoModal onClose={() => setShowModal(false)} />}
     </SectionWrapper>
   )
 }
