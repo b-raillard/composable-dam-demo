@@ -26,10 +26,10 @@ function LockIcon({ locked }: { locked: boolean }) {
 }
 
 export function TransformationDemoModal({ onClose }: Props) {
-  const [width, setWidth] = useState('800')
-  const [height, setHeight] = useState('600')
+  const [width, setWidth] = useState('640')
+  const [height, setHeight] = useState('425')
   const [locked, setLocked] = useState(true)
-  const [ratio, setRatio] = useState<number>(800 / 600)
+  const [ratio, setRatio] = useState<number>(640 / 425)
   const [isFill, setIsFill] = useState(true)
   const [rounded, setRounded] = useState(false)
   const [rotate, setRotate] = useState(false)
@@ -42,8 +42,8 @@ export function TransformationDemoModal({ onClose }: Props) {
     return () => clearTimeout(timer)
   }, [bgPrompt])
 
-  const parsedWidth = Math.max(50, Math.min(2000, parseInt(width) || 800))
-  const parsedHeight = Math.max(50, Math.min(2000, parseInt(height) || 600))
+  const parsedWidth = Math.max(50, Math.min(2000, parseInt(width) || 640))
+  const parsedHeight = Math.max(50, Math.min(2000, parseInt(height) || 425))
 
   const cropMode = isFill ? 'fill' : 'scale'
 
@@ -59,7 +59,7 @@ export function TransformationDemoModal({ onClose }: Props) {
   const handleWidthChange = (val: string) => {
     setWidth(val)
     if (locked) {
-      const newW = Math.max(50, Math.min(2000, parseInt(val) || 800))
+      const newW = Math.max(50, Math.min(2000, parseInt(val) || 640))
       setHeight(String(Math.round(newW / ratio)))
     }
   }
@@ -145,7 +145,7 @@ export function TransformationDemoModal({ onClose }: Props) {
                     onChange={(e) => handleWidthChange(e.target.value)}
                     min={50}
                     max={2000}
-                    placeholder="800"
+                    placeholder="640"
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                 </div>
@@ -177,7 +177,7 @@ export function TransformationDemoModal({ onClose }: Props) {
                     onChange={(e) => setHeight(e.target.value)}
                     min={50}
                     max={2000}
-                    placeholder="600"
+                    placeholder="425"
                     disabled={locked}
                     className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors ${
                       locked

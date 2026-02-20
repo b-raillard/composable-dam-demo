@@ -8,6 +8,7 @@ import { AiContentAwareCrop } from './_components/AiContentAwareCrop'
 import { AiImageEnhancer } from './_components/AiImageEnhancer'
 import { AiAutoTagging } from './_components/AiAutoTagging'
 import { AiGenerativeReplace } from './_components/AiGenerativeReplace'
+import { TransformationDemoButton } from './_components/TransformationDemoButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -29,7 +30,11 @@ export default function CapabilitiesPage() {
             management features - from basic optimization to AI-powered
             transformations.
           </p>
-          <nav className="mt-10 flex flex-wrap justify-center gap-3">
+          <div className="mt-10 flex justify-center">
+            <TransformationDemoButton />
+          </div>
+
+          <nav className="mt-6 flex flex-wrap justify-center gap-3">
             {[
               { label: 'Optimization', href: '#optimization' },
               { label: 'Transforms', href: '#transforms' },
