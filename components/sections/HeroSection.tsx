@@ -15,7 +15,7 @@ export function HeroSection({ section }: HeroSectionProps) {
   const overlayOpacity = section.overlayOpacity ?? 0.5
 
   return (
-    <section className="relative min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
+    <section className="relative min-h-[360px] lg:min-h-[400px] flex items-center overflow-hidden">
       {/* Background */}
       {publicId && (
         <div className="absolute inset-0">
@@ -50,15 +50,15 @@ export function HeroSection({ section }: HeroSectionProps) {
       )}
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 text-center">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 text-center">
         <h1
-          className={`heading-1 ${publicId ? 'text-white' : 'text-gray-900'}`}
+          className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight ${publicId ? 'text-white' : 'text-gray-900'}`}
         >
           {section.headline}
         </h1>
         {section.subheadline && (
           <p
-            className={`mt-6 text-xl md:text-2xl max-w-3xl mx-auto ${
+            className={`mt-4 text-base md:text-lg max-w-2xl mx-auto ${
               publicId ? 'text-gray-200' : 'text-gray-600'
             }`}
           >

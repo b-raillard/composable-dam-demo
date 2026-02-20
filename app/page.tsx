@@ -39,5 +39,45 @@ export default async function HomePage() {
     )
   }
 
-  return <SectionRenderer sections={page.sections} />
+  const [heroSection, ...remainingSections] = page.sections
+
+  return (
+    <>
+      <SectionRenderer sections={[heroSection]} />
+
+      {/* Built with Claude — injected between hero and capabilities */}
+      <section className="relative bg-[#0d0d0d] text-white overflow-hidden">
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(251,191,36,0.08)_0%,_transparent_70%)] pointer-events-none" />
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-14 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-5">
+            Built with AI
+          </p>
+          <h2 className="text-2xl md:text-3xl font-bold mb-5 text-white">
+            This entire POC was crafted with Claude
+          </h2>
+          <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed">
+            Every line of code — from the Contentful content model and Cloudinary
+            integrations to the Next.js components and this very page — was
+            written collaboratively with{' '}
+            <a
+              href="https://claude.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-400 font-semibold hover:text-amber-300 transition-colors"
+            >
+              Claude by Anthropic
+            </a>
+            . No boilerplate was copy-pasted; each feature was designed and
+            implemented through a real back-and-forth conversation.
+          </p>
+          <p className="text-sm text-gray-600">
+            Proof that a composable DAM demo can go from idea to production in a single session.
+          </p>
+        </div>
+      </section>
+
+      <SectionRenderer sections={remainingSections} />
+    </>
+  )
 }
